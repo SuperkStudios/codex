@@ -1,3 +1,7 @@
+Keep seeing someone on twitter mention this so ill update and modernize it. Hasent been updated in 14 years going to move to type script and see were it goes. 
+
+
+
 # Codex
 
 > Generate static websites using Markdown, Jade, and Stylus.
