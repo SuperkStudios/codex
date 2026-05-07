@@ -1,6 +1,7 @@
 language: node_js
 node_js:
-  - 0.6
+  - 20
 branches:
   only:
+    - main
     - master
