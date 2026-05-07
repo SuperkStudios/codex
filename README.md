@@ -1,15 +1,16 @@
-Keep seeing someone on twitter mention this so ill update and modernize it. Hasent been updated in 14 years going to move to type script and see were it goes. 
-
-
-
 # Codex
 
-> Generate static websites using Markdown, Jade, and Stylus.
+> Generate static websites using Markdown, Pug-compatible Jade templates, and Stylus.
 
-Codex is a simple tool for building static webites. It takes a template constructed in
-[Jade](http://github.com/visionmedia/jade) and themed in [Stylus](http://github.com/learnboost/stylus),
-and applies it to a collection of Markdown documents. The result is a complete html site
-that can be hosted using your favorite webserver, or on github-pages. 
+Codex is a simple tool for building static websites. It takes templates written in the
+classic Jade syntax, renders them with modern [Pug](https://pugjs.org), compiles
+[Stylus](https://stylus-lang.com/) styles, and applies everything to a collection of
+Markdown documents. The result is a complete HTML site that can be hosted by any static
+web server or on GitHub Pages.
+
+This package now targets Node.js 20 and uses maintained runtime dependencies for Markdown
+rendering, syntax highlighting, YAML front matter, template rendering, static serving,
+and filesystem work.
 
 ### Features
 
@@ -27,7 +28,9 @@ documentation was built by Codex and uses the `code` plugin extensively.
 
 You can install Codex through npm. Global installation is recommended for new projects.
 
-      $ [sudo] npm install codex -g
+```sh
+npm install codex -g
+```
 
 ## First Project
 
@@ -37,14 +40,19 @@ cd my-project
 codex watch -p 1227
 ```
 
-Using the `watch` command will automatically regenerate your site every time codex detects
+Using the `watch` command automatically regenerates your site every time Codex detects
 a change in either your template or data folders.
 
 ## CLI Usage
 
 There are a number of options available for the command line interface...
 
-![Codex CLI](http://f.cl.ly/items/06212s342p2G0d0l2v0p/codex-help.png)
+```sh
+codex --help
+codex build --in ./site --out ./site/out
+codex serve --dir ./site/out --port 1227
+codex watch --in ./site --port 1227
+```
 
 ## Code Plugin
 
@@ -52,7 +60,7 @@ There are a number of options available for the command line interface...
 
 ## Getting Help
 
-Please post issues or questions to [Github Issues](http://github.com/logicalparadox/codex/issues). 
+Please post issues or questions to [GitHub Issues](https://github.com/logicalparadox/codex/issues).
 
 ## License
 

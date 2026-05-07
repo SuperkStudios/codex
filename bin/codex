@@ -1,16 +1,24 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
-
-var args = require('optimist').argv
+var args = require('minimist')(process.argv.slice(2), {
+    alias: {
+        v: 'version'
+      , h: 'help'
+      , i: 'in'
+      , o: 'out'
+      , t: 'template'
+      , d: 'data'
+      , p: 'port'
+      , m: 'mount'
+    }
+  , boolean: [ 'version', 'help' ]
+  })
   , command = args._.slice(0)
   , Cli = require('../lib/codex/cli');
 
-if (command.length == 0) {
-  if (args.v || args.version) command.push('--version');
-  else if (args.h || args.help) command.push('--help');
+if (command.length === 0) {
+  if (args.version) command.push('--version');
+  else if (args.help) command.push('--help');
 }
 
 args.cwd = process.cwd();

@@ -1,12 +1,10 @@
 @import 'nib'
-@import 'fez'
 
 global-reset()
 
-fez-reset()
-
 body
   font 13px/1.4 "helvetica neue", helvetica, arial, sans-serif
+  margin 0
 a
   color #cc3300
   text-decoration none
@@ -43,4 +41,9 @@ footer
   
   .branding
     a.branding
-      button-shiny(#cc3300, #fff)
+      display inline-block
+      padding 3px 8px
+      border-radius 3px
+      background #cc3300
+      color #fff
+      line-height 1.4

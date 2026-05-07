@@ -2,42 +2,48 @@
   "author": "Jake Luer <jake@alogicalparadox.com>",
   "name": "codex",
   "description": "Static site and code documentation generator.",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "homepage": "https://github.com/logicalparadox/codex",
   "repository": {
     "type": "git",
-    "url": "git://github.com/logicalparadox/codex.git"
+    "url": "https://github.com/logicalparadox/codex.git"
   },
   "bugs": {
     "url": "https://github.com/logicalparadox/codex/issues"
   },
-  "main": "index",
-  "bin": "./bin/codex",
+  "license": "MIT",
+  "main": "index.js",
+  "bin": {
+    "codex": "./bin/codex"
+  },
+  "files": [
+    "bin/",
+    "index.js",
+    "lib/",
+    "skeleton/",
+    "History.md",
+    "README.md"
+  ],
   "scripts": {
-    "test": "make test"
+    "test": "node --test test/*.js"
   },
   "engines": {
-    "node": ">= 0.4.8"
+    "node": ">=20"
   },
   "dependencies": {
-    "drip": "0.2.x",
-    "tea": "0.0.x",
-    "oath": "0.2.x",
-    "optimist": "0.3.x",
-    "marked": "0.2.x",
-    "highlight.js": "1.2.x",
-    "dox": "0.3.x",
-    "jade": "0.26.x",
-    "stylus": "0.26.x",
-    "fez": "0.0.x",
-    "nib": "0.4.x",
-    "ncp": "0.2.x",
-    "rimraf": "2.0.x",
-    "yaml": "0.2.x",
-    "connect": "1.8.x"
+    "comment-parser": "^1.4.6",
+    "finalhandler": "^2.1.0",
+    "highlight.js": "^11.11.1",
+    "marked": "^12.0.2",
+    "minimist": "^1.2.8",
+    "nib": "^1.2.0",
+    "pug": "^3.0.4",
+    "serve-static": "^2.2.1",
+    "stylus": "^0.64.0",
+    "yaml": "^2.8.4"
   },
-  "devDependencies": {
-    "chai": "*",
-    "mocha": "*"
-  }
+  "overrides": {
+    "glob": "^13.0.6"
+  },
+  "devDependencies": {}
 }

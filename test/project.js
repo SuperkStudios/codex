@@ -1,18 +1,17 @@
-var should = require('chai').should()
-  , rimraf = require('rimraf')
+var test = require('node:test')
+  , assert = require('node:assert/strict')
   , path = require('path')
   , fs = require('fs')
-  , exists = fs.existsSync || path.existsSync;
+  , codex = require('..');
 
-var codex = require('..');
+var out = path.join(__dirname, 'fixture', 'out')
+  , temp = path.join(__dirname, 'fixture', 'template');
 
-function onError (e) {
-  should.not.exist(e);
-  true.should.be.false;
-}
+test('Project exposes a semver version', function () {
+  assert.match(codex.version, /\d+\.\d+\.\d+$/);
+});
 
-describe('Project', function () {
-
+test('Project correctly initializes', function () {
   var project = codex({
       locals: {
         title: 'Hello Universe'
@@ -20,44 +19,39 @@ describe('Project', function () {
     , inDir: path.join(__dirname, 'fixture')
   });
 
-  var out = path.join(__dirname, 'fixture', 'out')
-    , temp = path.join(__dirname, 'fixture', 'template');
+  assert.ok(project.config.inDir);
+});
 
-  beforeEach(function () {
-    project.removeAllListeners('error');
+test('Project correctly sets up folders', async function () {
+  var project = codex({
+      locals: {
+        title: 'Hello Universe'
+      }
+    , inDir: path.join(__dirname, 'fixture')
   });
 
-  after(function (done) {
-    rimraf(out, done);
+  await project.assertFolders();
+
+  assert.equal(project.config.outDir, out);
+  assert.equal(project.config.templateDir, temp);
+  assert.equal(fs.existsSync(out), true);
+});
+
+test('Project correctly builds', async function () {
+  var project = codex({
+      locals: {
+        title: 'Hello Universe'
+      }
+    , inDir: path.join(__dirname, 'fixture')
+    , clean: true
   });
 
-  it('should have a version', function () {
-    codex.version.should.match(/\d+\.\d+\.\d+$/);
-  });
+  await project._build();
 
-  it('should correctly initialize', function () {
-    project.config.inDir.should.be.ok;
-  });
+  assert.equal(fs.existsSync(out), true);
+  assert.equal(fs.existsSync(path.join(out, 'public/css/main.css')), true);
+});
 
-  it('should correctly setup folders', function (done) {
-    project.once('error', onError);
-    project.assertFolders().then(
-        function () {
-          project.config.outDir.should.equal(out);
-          project.config.templateDir.should.equal(temp);
-          exists(out).should.be.true;
-          done();
-        }
-      , onError
-    );
-  });
-
-  it('should correctly build', function (done) {
-    project.on('error', onError);
-    project.build(function () {
-      exists(out).should.be.true;
-      exists(path.join(out, 'public/css/main.css')).should.be.true;
-      done();
-    });
-  });
+test.after(async function () {
+  await fs.promises.rm(out, { recursive: true, force: true });
 });
